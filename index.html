@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Content Performance Policy</title>
+  <meta charset='utf-8'>
+  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
+  'remove'>
+  </script>
+  <script class='remove'>
+  var respecConfig = {
+    shortName: "CPP",
+    specStatus: "unofficial",
+    useExperimentalStyles: true,
+    edDraftURI: "http://yoavweiss.github.io/ContentPerformancePolicy/",
+    editors: [{
+      name: "Yoav Weiss",
+      url: "https://blog.yoav.ws/",
+      mailto: "yoav@yoav.ws",
+      company: "Akamai",
+      companyURL: "https://akamai.com/"
+    }, ],
+    format: "markdown",
+    otherLinks: [{
+      key: 'Repository',
+      data: [{
+        value: 'We are on Github.',
+        href: 'https://github.com/yoavweiss/ContentPerformancePolicy/'
+      }, {
+        value: 'File a bug.',
+        href: 'https://github.com/yoavweiss/ContentPerformancePolicy/issues'
+      }, {
+        value: 'Commit history.',
+        href: 'https://github.com/yoavweiss/ContentPerformancePolicy/commits/gh-pages/index.html'
+      }]
+    }],
+  };
+  </script>
+</head>
+<body>
+  <section id='abstract'>
+    <p>This specification defines a set of directives that Web pages and resources can set as guarantees with regard to their performance.
+    User agents can use those guarantees in order to BLABLABLA.
+    Applications that embed Web pages and link to them can use these guarantees in order to BLABLABLA. Content blockers may use those
+    guarantees in order to make their decision in an automatic manner.</p>
+  </section>
+  <section id='sotd'>
+    <p>This is a <strong>work in progress</strong> and may change without any
+    notices.</p>
+    <p id="unstable"><strong class="redNote">Implementers SHOULD be aware that
+    this document is not stable.</strong> Implementers who are not taking part
+    in the discussions are likely to find the specification changing out from
+    under them in incompatible ways. Vendors interested in implementing this
+    document before it eventually reaches the Candidate Recommendation stage
+    SHOULD join the mailing lists below and take part in the discussions.</p>
+  </section>
+  <section>
+    <h2>Introduction</h2>
+    <p>BLABLABLA - Web sites need control over third parties and over themselves.
+    There's an increasing need for guaranteed performance.
+    Browsers can be the enforcers of such performance guarantees and embedding
+    applications such as search engines and social networks can use these guarantees 
+    in order to emphasize performant content over content with unknown performance characteristics.</p>
+
+    <pre class="example highlight html">
+    </pre>
+    <pre class="example">
+    </pre>
+  </section>
+  <section>
+    <h2>Content Performance Policy directives<h2>
+    <p>Tha various directives can be divided into the following categories, each providing guarantees of its own</p>
+    <h3>Performance best practices</h3>
+    <ul>
+        <li>No sync scripts</li>
+        <li>Size limited inline styles</li>
+        <li>Web fonts loaded using <code>font-display: swap</code></li>
+        <li>Passive events only</li>
+        <li>Document layout not dependent on resource download</li>
+        <li>No layout thrashing - reads and writes batched</li>
+    </ul>
+    <h3>Resource savings</h3>
+    <ul>
+        <li>Lazy loading of images</li>
+        <li>Prevent scripts from consuming too much CPU resources</li>
+        <li>Resource size limits</li>
+    </ul>
+    <h3>User Experience</h3>
+    <ul>
+        <li>No auto playing video and audio</li>
+        <li>Certain page components are limited to paint only on certain parts of the viewport</li>
+        <li>No overlays</li>
+        <li>No popunders</li>
+    </ul>
+    <p class=note title=TODO>Does this cover all the annoying things sites do?</p>
+
+    <section>
+      <h2>Processing</h2>
+      <p class=note title=TODO>Add something here</p>
+    </section>
+    <section>
+      <h2>Syntax</h2>
+      <p class=note title=TODO>Can we steal everything but the directive definitions from CSP?</p>
+    </section>
+  </section>
+  <section id="conformance">
+    <p>There is only one class of product that can claim conformance to this
+    specification: a <dfn>user agent</dfn>.</p>
+  </section>
+  <section class='appendix informative'>
+    <h2>Use cases</h2>
+    <p class=note title=TODO>Add use cases</p>
+  </section>
+  <section>
+    <h2>IANA Considerations</h2>
+    <p class=note title=TODO>Register headers, etc</p>
+  </section>
+  <section id="privacy" class="informative">
+    <h2>Privacy and Security</h2>
+    <p>No impact, as this reveals nothing about the user. Web sites should be careful when declaring personalized policies.</p>
+  </section>
+  <section class="appendix informative">
+    <h2>Acknowledgments</h2>
+    <p>Probably CSP</p>
+  </section>
+</body>
+</html>
