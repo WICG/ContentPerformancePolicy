@@ -3,12 +3,10 @@
 <head>
   <title>Content Performance Policy</title>
   <meta charset='utf-8'>
-  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class=
-  'remove'>
+  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' class='remove'>
   </script>
   <script class='remove'>
   var respecConfig = {
-    shortName: "CPP",
     specStatus: "unofficial",
     useExperimentalStyles: true,
     edDraftURI: "http://yoavweiss.github.io/ContentPerformancePolicy/",
@@ -38,10 +36,15 @@
 </head>
 <body>
   <section id='abstract'>
-    <p>This specification defines a set of directives that Web pages and resources can set as guarantees with regard to their performance.
-    User agents can use those guarantees in order to BLABLABLA.
-    Applications that embed Web pages and link to them can use these guarantees in order to BLABLABLA. Content blockers may use those
-    guarantees in order to make their decision in an automatic manner.</p>
+    <p>This specification defines a set of directives that can be used by authors
+    in order to opt-out of the user-agents' slow path and apply
+    self-imposed <a href="https://github.com/WICG/interventions">interventions</a> on their sites,
+    in order to make sure that they are as fast as they can be, and that the user
+    experience is not harmed by either first or third party content.
+    User agents will modify their behavior in order to enforce these directives, and ignore "slow path" instructions by the sites.
+    Applications that embed Web pages and link to them can use these directives as guarantees pointing to the lack of performance and UX
+    anti-patterns in those sites, and potentially increase their ranking or exposure to users as a result.
+    Content blockers may use those guarantees in order to make their decision whether to block a certain resource or not in an automatic manner.</p>
   </section>
   <section id='sotd'>
     <p>This is a <strong>work in progress</strong> and may change without any
@@ -55,11 +58,29 @@
   </section>
   <section>
     <h2>Introduction</h2>
-    <p>BLABLABLA - Web sites need control over third parties and over themselves.
-    There's an increasing need for guaranteed performance.
-    Browsers can be the enforcers of such performance guarantees and embedding
-    applications such as search engines and social networks can use these guarantees 
-    in order to emphasize performant content over content with unknown performance characteristics.</p>
+    <p>With the increasing importance of mobile, Web site performance and pleasant mobile user experience are becoming ever more critical.
+    Yet the increasing complexity of today's Web application means that simply adhering to performance best practices only gets Web authors so far,
+    as they have hard time dictating and controlling the performance of third party components in their pages, as well as components built
+    by other teams in their organizations.    </p>
+
+    <p>Furthermore, the increasing use of content aggregators increases the need for performance and user experience guarantees.
+    Embedding applications (e.g. search engines and social networks) are reluctant to send users towards links that contain slow content
+    with poor UX, as that reflects negatively on them and the perception of their applications.</p>
+
+    <p>As a result, there's an increasing need for guaranteed performance, where the embedders can know for certain that mobile performance
+    anti-patterns were avoided by the site to which it links</p>
+
+    <p>At the same time, and probably for similar reasons, usage of content blockers have seen a dramatic rise, as users are more performance and
+    bandwidth conscious, and are willing to install browser extensions and applications to help them increase performance, reduce bandwidth
+    consumption and improve overall user experience.</p>
+
+    <p>Therefore, there's an increasing need for a mechanism that would give authors control over
+    their sites, and give them the opportunity to opt-out of various features of the Web platform that are inherently slow or from behaviors
+    that are known to irritate users and result in bad mobile user experience. These same mechanisms can be used for guarantees for content
+    embedders as well as content blockers, and enable them to make smart descisions based on the known performance characteristics of the
+    content.</p>
+
+    <p class=note title=TODO>Explain the mechanism that we're proposing</p>
 
     <pre class="example highlight html">
     </pre>
@@ -68,7 +89,6 @@
   </section>
   <section>
     <h2>Content Performance Policy directives<h2>
-    <p>Tha various directives can be divided into the following categories, each providing guarantees of its own</p>
     <h3>Performance best practices</h3>
     <ul>
         <li>No sync scripts</li>
