@@ -7,6 +7,7 @@
   </script>
   <script class='remove'>
   var respecConfig = {
+    shortName: "CPP",
     specStatus: "unofficial",
     useExperimentalStyles: true,
     edDraftURI: "http://yoavweiss.github.io/ContentPerformancePolicy/",
@@ -80,38 +81,76 @@
     embedders as well as content blockers, and enable them to make smart descisions based on the known performance characteristics of the
     content.</p>
 
+    <p>This specification will define a set of directives that will provide authors the required level of control over their site's performance,
+    and will provide performance guarantees of the site to interested parties.</p>
+
+    <p>The mechanism defined here borrows heavily from the syntax of Content-Security-Policy[[!CSP3]], including its reporting capabilities. The
+    main difference is the defined directives</p>
+
+    <p>The directives defined can be divided into three groups: directives enforcing performance best practices and opting into the fast
+    path, directives aimed at reducing the consumption of resources, and directives aimed at enforcing mobile-friendly user experience.</p>
+
+    <h3>Best practices and fast-path opt-in</h3>
+    <h4>No synchronous external scripts nor blocking external stylesheets</h4>
+    <p>Synchronous scripts and blocking external stylesheets add multiple RTTs to the time it takes to render the page and present the user
+    with something useful. Guaranteeing their absence verifies that the critical rendering path is clear.</p>
+    <h4>Size limited inline scripts and styles</h4>
+    Limiting the size of inline blocking elements also helps to reduce the number of RTTs required in order to fetch enough data so that an
+    initial render is possible.</p>
+    <h4>No text-blocking external Web fonts</h4>
+    <p>Web fonts are in many cases another critical blocking resource. Although layout and rendering are
+    possible even before the fonts are discovered and downloaded, by default many browsers will not show the text in their absence, for fear
+    of causing a FOUT (Flash Of Unstyled Text). On slow mobile networks, that can cause a significant delay in the time when the site is
+    actually useful for users. A directive can indicate that this is not the case, either because the site is not using Web fonts, or
+    because it is using techniques that render the fallback font first. (e.g. <code>font-display: swap</code>)</p>
+    <h4>No default-overriding events</h4>
+    <p>Scroll and click-hijacking are common techniques used for figuring out visiblity of elements, lazy loading and more. They also
+    often result in laggy and janky experience, especially on mobile. The advent of Intersection Observer enables authors to tackle these
+    use cases without hurting performance. Passive events enable authors to opt-in to having scroll and click events, without paying the
+    associated performance price of synchronously waiting for the events to return to know if the default action was cancelled or not.
+    A directive that would guaranty that all events are passive, effectively guarantees lack of scroll jank, which is extremely important on
+    mobile.</p>
+    <h4>Document layout not dependent on resource download</h4>
+    <p>Content shifts after resource downloads are a common anti-pattern on mobile, as it distracts the user and causes them to lose their
+    reading location.
+    They are typically caused by images or other intrinsic width resources that did not have a "reserved" place in markup/styles before
+    that, so their intrinsic dimensions are used for layout, causing content to shift once those intrinsic dimensions are known.
+    A directive can be used to guarantee that this is not the case.</p>
+    <h4>No layout thrashing - reads and writes batched</h4>
+    <p>Libraries like <a href="https://github.com/wilsonpage/fastdom">fastDOM</a> are used to guarantee to authors that they are not performing consecutive reads and writes, forcing all reads
+    and writes to be performed in a serial fashion. </p>
+    <p>Browsers can provide similar guarantees, which result in improved performance</p>
+
+    <h3>Resource savings</h3>
+    <h4>Lazy loading of images</h4>
+    <h4>Throttling CPU consumption on the main thread</h4>
+    <h4>Resource size limits</h4>
+
+    <h3>User Experience</h3>
+    <p class=note title=TODO>Can we provide certain directives that would enable something like <a
+        href="https://adblockplus.org/acceptable-ads">acceptable ads</a> to be processed
+    automatically and won't require a "certified" stamp?</p>
+    <h4>No auto playing video and audio</h4>
+    <h4>Certain page components are limited to paint only on certain parts of the viewport</h4>
+    <h4>No overlays</h4>
+    <h4>No popunders</h4>
+
+    <p class=note title=TODO>Does this cover all the annoying things sites do?</p>
     <p class=note title=TODO>Explain the mechanism that we're proposing</p>
 
+    <!--
     <pre class="example highlight html">
     </pre>
     <pre class="example">
     </pre>
+    -->
   </section>
   <section>
-    <h2>Content Performance Policy directives<h2>
-    <h3>Performance best practices</h3>
-    <ul>
-        <li>No sync scripts</li>
-        <li>Size limited inline styles</li>
-        <li>Web fonts loaded using <code>font-display: swap</code></li>
-        <li>Passive events only</li>
-        <li>Document layout not dependent on resource download</li>
-        <li>No layout thrashing - reads and writes batched</li>
-    </ul>
-    <h3>Resource savings</h3>
-    <ul>
-        <li>Lazy loading of images</li>
-        <li>Prevent scripts from consuming too much CPU resources</li>
-        <li>Resource size limits</li>
-    </ul>
-    <h3>User Experience</h3>
-    <ul>
-        <li>No auto playing video and audio</li>
-        <li>Certain page components are limited to paint only on certain parts of the viewport</li>
-        <li>No overlays</li>
-        <li>No popunders</li>
-    </ul>
-    <p class=note title=TODO>Does this cover all the annoying things sites do?</p>
+    <h2>Directives</h2>
+    <h3>no-blocking-external</h3>
+    <h3>max-internal-blocking-size</h3>
+    <h3>no-blocking-font</h3>
+
 
     <section>
       <h2>Processing</h2>
