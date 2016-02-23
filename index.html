@@ -124,8 +124,20 @@
 
     <h3>Resource savings</h3>
     <h4>Lazy loading of images</h4>
+    <p>Images on the page that are outside of the initial viewport can often be downloaded and delay the page's onload event without
+    actually being seen by the user. That issue is significantly worse on mobile, where the viewports can be very long.</p>
+    <p>A lazy loading directive can be used to indicate the browser that images outside of the first few images are all lazy loaded.</p>
+    <p>The browser can then act on that directive and avoid loading those images.</p>
+    <p class=note>Since there's no native lazy loading API today, we may need to add some related primitives to enable the loading of those
+    images without changing the `src` attribute.</p>
     <h4>Throttling CPU consumption on the main thread</h4>
+    <p>Scripts run in the context of the page and in some cases in the context of an iframe on the page, can "hog" the CPU and prevent other
+    more critical scripts from properly running.</p>
+    <p>A throttling directive can instruct the browser to prevent such "hogging" and throttle down certain scripts that and iframes.</p>
     <h4>Resource size limits</h4>
+    <p>Today when a user clicks on a link, they have no means to know what would be the implications of that on their data plan and their
+    bill. A directive committing a Web site not to surpass a certain amount of download data, and restricting its ability to download more
+    can provide such guarantees to users.</p>
 
     <h3>User Experience</h3>
     <p class=note title=TODO>Can we provide certain directives that would enable something like <a
